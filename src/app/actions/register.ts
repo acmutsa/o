@@ -1,3 +1,4 @@
+"use server";
 import { authenticatedAction } from "@/lib/safe-action";
 import { updateUserSchema } from "@/db/zod";
 import { updateUserInfo, isRegistered } from "@/db/functions";
