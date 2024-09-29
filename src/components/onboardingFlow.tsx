@@ -126,7 +126,7 @@ export default function OnboardingFlow() {
           )}
         />
 
-        {/* <FormField
+        <FormField
           control={form.control}
           name="roles"
           render={({ field }) => (
@@ -146,14 +146,15 @@ export default function OnboardingFlow() {
                 />
               </FormControl>
               <FormDescription className="!mt-0">
-
+                  Please enter any positions, past or present, that you have been a part of.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
+

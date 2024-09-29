@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
-import { Button } from "@/components/shadcn/ui/button";
+import { Button } from "../button";
 import { TagInputProps, type Tag as TagType } from "./tag-input";
-import { cn } from "@/lib/utils/client/cn";
+import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
 export const tagVariants = cva(
