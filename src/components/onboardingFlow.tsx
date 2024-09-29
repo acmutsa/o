@@ -29,13 +29,12 @@ export default function OnboardingFlow() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      birthday: new Date(),
       phone: "",
       roles: [],
     },
   });
 
-  const { execute: runRegisterUser, result: registerUserResult } = useAction(
+  const { execute: runRegisterUser, result: registerUserResult,isExecuting:isLoading } = useAction(
     registerUser,
     {
       onSuccess: ({ data }) => {
@@ -58,8 +57,7 @@ export default function OnboardingFlow() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4"
-      >
+        className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4 gap-y-4">
         <FormField
           control={form.control}
           name="firstName"
@@ -112,13 +110,13 @@ export default function OnboardingFlow() {
         <FormField
           control={form.control}
           name="phone"
-          render={() => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>
                 <span>Phone Number</span>
               </FormLabel>
               <FormControl>
-                <Input />
+                <Input onChange={field.onChange} />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -126,33 +124,36 @@ export default function OnboardingFlow() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="roles"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-start">
-              <FormLabel className="pb-2 text-left"></FormLabel>
-              <FormControl className="min-h-[80px]">
-                <TagInput
-                  inputFieldPostion="top"
-                  {...field}
-                  placeholder="Type and then press enter to add a skill..."
-                  tags={roles}
-                  className="sm:min-w-[450px]"
-                  setTags={(newTags) => {
-                    setRoles(newTags);
-                    field.onChange(newTags as [Tag, ...Tag[]]);
-                  }}
-                />
-              </FormControl>
-              <FormDescription className="!mt-0">
-                  Please enter any positions, past or present, that you have been a part of.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+        <div className="md:col-span-2 flex flex-col items-start">
+          <FormField
+            control={form.control}
+            name="roles"
+            render={({ field }) => (
+              <FormItem className="flex flex-col items-start">
+                <FormLabel className="pb-2 text-left"></FormLabel>
+                <FormControl className="min-h-[80px]">
+                  <TagInput
+                    inputFieldPostion="top"
+                    {...field}
+                    placeholder="Type and then press enter to add a skill..."
+                    tags={roles}
+                    className="sm:min-w-[450px]"
+                    setTags={(newTags) => {
+                      setRoles(newTags);
+                      field.onChange(newTags as [Tag, ...Tag[]]);
+                    }}
+                  />
+                </FormControl>
+                <FormDescription className="!mt-0">
+                  Please enter any positions, past or present, that you have
+                  been a part of.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button type="submit" disabled={isLoading} className="w-1/2">{isLoading ? "Loading...":"Submit"}</Button>
       </form>
     </Form>
   );
