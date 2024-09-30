@@ -6,7 +6,7 @@ import z from "zod";
 import { returnValidationErrors } from "next-safe-action";
 
 export const registerUser = authenticatedAction
-  .schema(updateUserSchema)
+  .schema(updateUserSchema.required())
   .action(async ({ parsedInput, ctx: { user } }) => {
     if (await isRegistered(user.id)) {
       returnValidationErrors(z.null(), {
@@ -15,8 +15,9 @@ export const registerUser = authenticatedAction
     }
 
     const userId = await updateUserInfo(user.id, {
-      isRegistrationComplete: true,
       ...parsedInput,
+      roles: parsedInput.roles!.map((val) => val.text),
+      isRegistrationComplete: true,
     });
 
     if (!userId) {

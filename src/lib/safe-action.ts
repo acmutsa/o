@@ -1,4 +1,3 @@
-"use server";
 import { validateRequest } from "@/auth";
 import {
   createSafeActionClient,

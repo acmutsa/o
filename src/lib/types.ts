@@ -1,4 +1,10 @@
 import { updateUserSchema } from "@/db/zod";
 import z from "zod";
 
-export type uUser = z.infer<typeof updateUserSchema>;
+const uUserWithRoleStrings = updateUserSchema.merge(
+  z.object({
+    roles: z.string().array().min(1),
+  })
+);
+
+export type uUser = z.infer<typeof uUserWithRoleStrings>;

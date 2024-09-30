@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const generalSans = localFont({
   src: "../../font/GeneralSans.woff2",
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${generalSans.variable} antialiased`}>{children}</body>
+      <Toaster />
     </html>
   );
 }
