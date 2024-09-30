@@ -26,4 +26,5 @@ export const updateUserSchema = createInsertSchema(userTable, {
   id: true,
   notionId: true,
   email: true,
+  isRegistrationComplete: true,
 });

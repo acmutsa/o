@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { uUser } from "@/lib/types";
 import { TagInput, Tag } from "@/components/ui/tag/tag-input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -46,9 +46,18 @@ export default function OnboardingFlow() {
       phone: "",
       roles: [],
     },
+    mode: "onChange",
   });
 
-  const { execute: runRegisterUser, isExecuting: isLoading } = useAction(
+  const { isSubmitSuccessful, isSubmitted, errors } = form.formState;
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
+  const hasErrors = !isSubmitSuccessful && isSubmitted;
+
+  const { execute: runRegisterUser, isPending: isLoading } = useAction(
     registerUser,
     {
       onSuccess: ({ data }) => {
@@ -61,7 +70,7 @@ export default function OnboardingFlow() {
         }
       },
       onError: ({ error }) => {
-        toast.success("An unknown error has occurred");
+        toast.error("An unknown error has occurred");
         console.log({ error });
       },
     }
@@ -202,6 +211,12 @@ export default function OnboardingFlow() {
               )}
             />
           </div>
+
+          {hasErrors && (
+            <p className="text-red-800">
+              Something doesn't look right. Please check your inputs.
+            </p>
+          )}
         </div>
         <div className="w-full flex flex-row-reverse">
           <Button type="submit" disabled={isLoading} className="w-fit p-5 mt-8">
