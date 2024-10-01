@@ -1,7 +1,7 @@
 "use server";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { userTable } from "./schema";
+import { userTable } from "@/db/schema";
 import { uUser } from "@/lib/types";
 
 export async function getUser(id: string) {
@@ -27,4 +27,13 @@ export async function isRegistered(userId: string) {
       },
     })
   )?.isRegistrationComplete;
+}
+
+export async function getAllOfficers() {
+  return await db.query.userTable.findMany({
+    where: eq(userTable.isRegistrationComplete, true),
+    columns: {
+      isRegistrationComplete: false,
+    },
+  });
 }

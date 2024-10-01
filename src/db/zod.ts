@@ -1,4 +1,4 @@
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import z from "zod";
 import { userTable } from "./schema";
 
@@ -26,5 +26,11 @@ export const updateUserSchema = createInsertSchema(userTable, {
   id: true,
   notionId: true,
   email: true,
+  isRegistrationComplete: true,
+});
+
+export const selectUserSchema = createSelectSchema(userTable, {
+  roles: z.array(z.string().min(1)).min(1),
+}).omit({
   isRegistrationComplete: true,
 });

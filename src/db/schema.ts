@@ -8,7 +8,7 @@ export const userTable = sqliteTable("user", {
   firstName: text("first_name"),
   lastName: text("last_name"),
   phone: text("phone"),
-  roles: text("roles", { mode: "json" }),
+  roles: text("roles", { mode: "json" }).$type<string[]>(),
   birthday: integer("birthday", { mode: "timestamp" }),
   isRegistrationComplete: integer("registration_complete", { mode: "boolean" })
     .notNull()

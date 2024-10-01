@@ -1,4 +1,4 @@
-import { updateUserSchema } from "@/db/zod";
+import { updateUserSchema, selectUserSchema } from "@/db/zod";
 import z from "zod";
 
 const uUserWithRoleStrings = updateUserSchema.merge(
@@ -8,3 +8,5 @@ const uUserWithRoleStrings = updateUserSchema.merge(
 );
 
 export type uUser = z.infer<typeof uUserWithRoleStrings>;
+
+export type sUser = z.infer<typeof selectUserSchema>;
