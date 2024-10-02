@@ -23,8 +23,8 @@ function OfficerCard({ o }: Props) {
           {o.firstName} {o.lastName}
         </CardTitle>
         <div className="flex gap-x-2">
-          {o.roles?.map((r) => (
-            <Badge>{r}</Badge>
+          {o.roles?.map((r, idx) => (
+            <Badge key={idx}>{r}</Badge>
           ))}
         </div>
       </CardHeader>
