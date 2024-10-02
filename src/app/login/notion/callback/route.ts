@@ -3,7 +3,8 @@ import { notion, lucia } from "@/auth";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 import { generateIdFromEntropySize } from "lucia";
-import { db, eq } from "@/db";
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
 import { userTable } from "@/db/schema";
 
 export async function GET(request: Request): Promise<Response> {

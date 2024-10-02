@@ -1,7 +1,7 @@
 "use server";
 import { authenticatedAction } from "@/lib/safe-action";
 import { updateUserSchema } from "@/db/zod";
-import { updateUserInfo, isRegistered } from "@/db/functions";
+import { updateUserInfo, isRegistered } from "@/db/functions/officers";
 import z from "zod";
 import { returnValidationErrors } from "next-safe-action";
 
